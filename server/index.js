@@ -78,13 +78,8 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-// ---- Serve static frontend in production ----
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/dist")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-  });
-}
+// Note: Frontend is deployed separately on Vercel.
+// No static file serving needed here.
 
 // ---- Error handler ----
 app.use((err, req, res, next) => {
